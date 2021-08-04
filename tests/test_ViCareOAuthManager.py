@@ -29,8 +29,11 @@ class PyViCareServiceTest(unittest.TestCase):
         self.manager = OAuthManagerWithMock(self.oauth_mock)
 
     def test_get_raiseratelimit_ifthatreponse(self):
-        self.oauth_mock.get.return_value = FakeResponse('response/rate_limit.json')
-        def func(): return self.manager.get("/")
+        self.oauth_mock.get.return_value = FakeResponse(
+            'response/rate_limit.json')
+
+        def func():
+            return self.manager.get("/")
         self.assertRaises(PyViCareRateLimitError, func)
 
     def test_get_renewtoken_ifexpired(self):
@@ -42,8 +45,11 @@ class PyViCareServiceTest(unittest.TestCase):
         self.oauth_mock.renewToken.assert_called_once()
 
     def test_post_raiseratelimit_ifthatreponse(self):
-        self.oauth_mock.post.return_value = FakeResponse('response/rate_limit.json')
-        def func(): return self.manager.post("/", "some")
+        self.oauth_mock.post.return_value = FakeResponse(
+            'response/rate_limit.json')
+
+        def func():
+            return self.manager.post("/", "some")
         self.assertRaises(PyViCareRateLimitError, func)
 
     def test_post_renewtoken_ifexpired(self):

@@ -33,7 +33,7 @@ class AbstractViCareOAuthManager:
         try:
             logger.debug(self.oauth)
             response = self.oauth.get(f"{API_BASE_URL}{url}").json()
-            logger.debug("Response to get request: "+str(response))
+            logger.debug(f"Response to get request: {response}")
             self.handleExpiredToken(response)
             self.handleRateLimit(response)
             return response
@@ -184,7 +184,7 @@ class ViCareOAuthManager(AbstractViCareOAuthManager):
         logger.info("Token serialized to %s" % token_file)
 
     def _deserializeToken(self, token_file):
-        if (token_file == None) or not os.path.isfile(token_file):
+        if (token_file is None) or not os.path.isfile(token_file):
             logger.debug(
                 "Token file argument not provided or file does not exist")
             return None
